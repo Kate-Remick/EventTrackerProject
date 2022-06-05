@@ -19,9 +19,6 @@ public class SleepPeriodServiceImpl implements SleepPeriodService{
 	
 	@Autowired
 	private WorkoutRepository wr;
-//	
-//	@Autowired
-//	private EveningActivityRepository ear;
 
 	@Override
 	public SleepPeriod findById(int id) {
@@ -43,6 +40,28 @@ public class SleepPeriodServiceImpl implements SleepPeriodService{
 		sp = spr.saveAndFlush(sp);
 		
 		return sp;
+	}
+	
+	
+	@Override
+	public SleepPeriod editSleep(SleepPeriod sp, int id) {
+		SleepPeriod edited =  null;
+		Optional<SleepPeriod> op = spr.findById(id);
+		if(op.isPresent()) {
+			edited = op.get();
+			edited.setDuration(sp.getDuration());
+			edited.setEnd(sp.getEnd());
+			edited.setEveningActivity(sp.getEveningActivity());
+			edited.setExcercised(sp.isExcercised());
+			edited.setHadAlcohol(sp.isHadAlcohol());
+			edited.setLargeDinner(sp.isLargeDinner());
+			edited.setQuality(sp.getQuality());
+			edited.setStart(sp.getStart());
+			edited.setTookNap(sp.isTookNap());
+			edited.setWorkout(sp.getWorkout());
+			edited = spr.saveAndFlush(edited);
+		}
+		return edited;
 	}
 
 	@Override

@@ -15,6 +15,8 @@ public interface SleepPeriodService {
 	
 	SleepPeriod addSleep(SleepPeriod sp);
 	
+	SleepPeriod editSleep(SleepPeriod sp, int id);
+	
 	boolean removeSleep(int id);
 	
 	List<SleepPeriod> findByWorkoutTime(int wktId);

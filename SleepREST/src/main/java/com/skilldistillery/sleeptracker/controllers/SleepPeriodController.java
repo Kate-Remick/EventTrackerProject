@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +67,23 @@ public class SleepPeriodController {
 	public SleepPeriod addSleep(@RequestBody SleepPeriod sp, HttpServletResponse res) {
 		try {
 			sp = sps.addSleep(sp);
+			if (sp == null) {
+				res.setStatus(204);
+			} else {
+				res.setStatus(201);
+			}
+		} catch (Exception e) {
+			res.setStatus(400);
+			sp = null;
+			e.printStackTrace();
+		}
+		return sp;
+		
+	}
+	@PutMapping("sleep/{id}")
+	public SleepPeriod editSleep(@RequestBody SleepPeriod sp, HttpServletResponse res, @PathVariable int id) {
+		try {
+			sp = sps.editSleep(sp, id);
 			if (sp == null) {
 				res.setStatus(204);
 			} else {
