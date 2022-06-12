@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="js/sleep.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="main row">
+
+		<div class="row header">
+			<h1>Sleep Tracker:</h1>
+			<h4>How we get a better night's rest!</h4>
+		</div>
+
+		<div class="row addSleep form" id="addSleep">
+			<form name="sleepForm">
+				<label for="timeStart">When did you go to bed?</label><input type="datetime-local" name="timeStart" id="timeStart" /><br>
+				<label for="timeEnd">When did you get up?</label><input type="datetime-local" name="timeEnd" id="timeStop" /><br>
+				<label for="quality">How well did you sleep?(*/10)</label><input type="number" min="0" max="10" name="quality" id="quality" /><br>
+				<label for="eveningActivity"> What did you do shortly before bedtime?</label><select name="eveningActivity" id="eveningActivity">
+				<!-- use js to populate list -->
+				</select><br>
+				<label for="exercised">Did you exercise?</label><input type="checkbox" name="exercised" id="exersised" value="true"/><br>
+				<!-- add js for workout time option -->
+				
+				<label for="workoutTime"> When did you work out?</label><select name="timeOfDay" id="workoutTime">
+				<option value=1>Morning</option>
+				<option value=2>Noon</option>
+				<option value=3>Afternoon/Evening</option>
+				</select><br>
+				
+				<label for="hadAlcohol">Had Alcohol: </label><input type="checkbox" name="hadAlchol" id="hadAlcohol"  value="true"/>
+				<label for="tookNap">Took Nap: </label><input type="checkbox" name="tookNap" id="tookNap" value="true"/>
+				<label for="largeDinner">Had a large dinner: </label><input type="checkbox" name="largeDinner" id="largeDinner" value="true"/>
+
+				<button name="submit">Submit</button>
+	
+			</form>
+		</div>
+		<div class="row addActivity form" id="addActivity">
+			<form name="activityForm">
+				<h3>Add an activity:</h3>
+				<label for="name">Name of Activity</label><input type="text" name="name" placeholder="Read a book, Watched Netflix"/>
+				<button name="submit">Submit</button>
+			</form>
+		</div>
+		
+		<div class="row recommendations" id="recommendations">
+		<h3>Recommendations based on your sleep data: </h3>
+		
+		</div>
+		<div class="row sleepData" id="findSleep"></div>
+
+		<div class="row findSleep" id="findSleep">
+			<h3>Your Sleep Data</h3>
+
+			<table>
+				<thead>
+					<tr >
+						<th abbr=0>Quality</th>
+						<th abbr=1>Date</th>
+						<th abbr=2>Time Start</th>
+						<th abbr=3>Time End</th>
+						<th abbr=4>Duration</th>
+						<th abbr=5>Evening Activity</th>
+						<th abbr=6>Worked out?</th>
+						<th abbr=7>Time of workout</th>
+						<th abbr=8>Had Alcohol</th>
+						<th abbr=9>Took Nap</th>
+						<th abbr=10>Id</th>
+					</tr>
+				</thead>
+				<tbody id="dataDisplay">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>

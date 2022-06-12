@@ -52,7 +52,7 @@ public class SleepPeriodServiceImpl implements SleepPeriodService{
 			edited.setDuration(sp.getDuration());
 			edited.setEnd(sp.getEnd());
 			edited.setEveningActivity(sp.getEveningActivity());
-			edited.setExcercised(sp.isExcercised());
+			edited.setExercised(sp.isExercised());
 			edited.setHadAlcohol(sp.isHadAlcohol());
 			edited.setLargeDinner(sp.isLargeDinner());
 			edited.setQuality(sp.getQuality());

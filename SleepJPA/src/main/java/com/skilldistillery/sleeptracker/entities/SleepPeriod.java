@@ -32,7 +32,7 @@ public class SleepPeriod {
 	@Column(name="large_dinner")
 	private boolean largeDinner;
 
-	private boolean excercised;
+	private boolean exercised;
 	
 	@Column(name="took_nap")
 	private boolean tookNap;
@@ -88,7 +88,7 @@ public class SleepPeriod {
 		this.end = end;
 		this.hadAlcohol = hadAlcohol;
 		this.largeDinner = largeDinner;
-		this.excercised = excercised;
+		this.exercised = excercised;
 		this.tookNap = tookNap;
 		this.quality = quality;
 		
@@ -170,12 +170,12 @@ public class SleepPeriod {
 		this.largeDinner = largeDinner;
 	}
 
-	public boolean isExcercised() {
-		return excercised;
+	public boolean isExercised() {
+		return exercised;
 	}
 
-	public void setExcercised(boolean excercised) {
-		this.excercised = excercised;
+	public void setExercised(boolean excercised) {
+		this.exercised = excercised;
 	}
 
 
