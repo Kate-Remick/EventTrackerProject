@@ -2,81 +2,199 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
 <script type="text/javascript" src="js/sleep.js"></script>
 <title>Insert title here</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="css/sleep.css" />
 </head>
 <body>
 	<div class="main row">
 
 		<div class="row header">
 			<h1>Sleep Tracker:</h1>
-			<h4>How we get a better night's rest!</h4>
+			<h4>Use data to discover what may help you get a better night's
+				rest!</h4>
 		</div>
+		<div class="col-2"></div>
+		<div class="col-8">
+			<div class="row addSleep form" id="addSleep">
+				<h3>How did you sleep last night?</h3>
+				<form name="sleepForm">
+					<label for="timeStart">When did you go to bed?</label><input
+						type="datetime-local" name="timeStart" id="timeStart" /><br>
+					<label for="timeEnd">When did you get up?</label><input
+						type="datetime-local" name="timeEnd" id="timeStop" /><br> <label
+						for="quality">How well did you sleep?(*/10)</label><input
+						type="number" min="0" max="10" name="quality" id="quality" /><br>
+					<label for="eveningActivity"> What did you do shortly
+						before bedtime?</label><select name="eveningActivity" id="eveningActivity">
+						<!-- use js to populate list -->
+					</select><br> <label for="exercised">Did you exercise?</label><input
+						type="checkbox" name="exercised" id="exersised" value="true"  /><br>
+					<!-- add js for workout time option -->
 
-		<div class="row addSleep form" id="addSleep">
-			<form name="sleepForm">
-				<label for="timeStart">When did you go to bed?</label><input type="datetime-local" name="timeStart" id="timeStart" /><br>
-				<label for="timeEnd">When did you get up?</label><input type="datetime-local" name="timeEnd" id="timeStop" /><br>
-				<label for="quality">How well did you sleep?(*/10)</label><input type="number" min="0" max="10" name="quality" id="quality" /><br>
-				<label for="eveningActivity"> What did you do shortly before bedtime?</label><select name="eveningActivity" id="eveningActivity">
-				<!-- use js to populate list -->
-				</select><br>
-				<label for="exercised">Did you exercise?</label><input type="checkbox" name="exercised" id="exersised" value="true"/><br>
-				<!-- add js for workout time option -->
-				
-				<label for="workoutTime"> When did you work out?</label><select name="timeOfDay" id="workoutTime">
-				<option value=1>Morning</option>
-				<option value=2>Noon</option>
-				<option value=3>Afternoon/Evening</option>
-				</select><br>
-				
-				<label for="hadAlcohol">Had Alcohol: </label><input type="checkbox" name="hadAlchol" id="hadAlcohol"  value="true"/>
-				<label for="tookNap">Took Nap: </label><input type="checkbox" name="tookNap" id="tookNap" value="true"/>
-				<label for="largeDinner">Had a large dinner: </label><input type="checkbox" name="largeDinner" id="largeDinner" value="true"/>
+					<label for="workoutTime"  id="showCheckLabelAdd" > When did you work out?</label><select
+						name="timeOfDay" id="workoutTime" id="showCheckWorkoutAdd" >
+						<option value=1>Morning</option>
+						<option value=2>Noon</option>
+						<option value=3>Afternoon/Evening</option>
+					</select><br> <label for="hadAlcohol">Had Alcohol: </label><input
+						type="checkbox" name="hadAlchol" id="hadAlcohol" value="true" />
+					<label for="tookNap">Took Nap: </label><input type="checkbox"
+						name="tookNap" id="tookNap" value="true" /> <label
+						for="largeDinner">Had a large dinner: </label><input
+						type="checkbox" name="largeDinner" id="largeDinner" value="true" />
 
-				<button name="submit">Submit</button>
+					<br>
+					<button name="submit">Submit</button>
+
+				</form>
+			</div>
+		</div>
+		<div class="col-2"></div>
+		<br> <br>
+		<div class="col-2"></div>
+		<div class="col-8">
+			<div class="row addActivity form" id="addActivity">
+				<form name="activityForm">
+					<h4>Activity not listed? Add an activity:</h4>
+					<label for="name">Name of Activity</label><input type="text"
+						name="name" placeholder="Read a book, Watched Netflix" />
+					<button name="submit">Submit</button>
+				</form>
+			</div>
+		</div>
+		<div class="col-2"></div>
+		<br> <br>
+
+		<div class="row recommendations">
+			<div class="col-2"></div>
+			<div class="col-8" id="recommendations">
+				<br>
+				<h3>Recommendations based on your sleep data:</h3>
+				<br>
+
+			</div>
+			<div class="col-2"></div>
+		</div>
+		<br> <br>
+		<div class="row sleepData" id="findSleep"></div>
+		<div class="col-2"></div>
+		<div class="col-8">
+			<h3>List Sleep by attributes</h3>
+			<form class="findSleepForm" name="findSleep">
+				<input type="number" min="1" max="100" name="id"/>
+				<button name="findById">Find by id</button>
+				<br> <label>Min: </label><input name="min" max="10" min="0" type="number" /><label> Max:
+				</label><input name="max" max="10" min="0" type="number" />
+				<button name="findByQuality">Find by Quality</button><br>
+				<button name="findByWorkoutTime">Find by Workout time</button>
+				<select name="timeOfDay" id="workoutTime">
+					<option value=1>Morning</option>
+					<option value=2>Noon</option>
+					<option value=3>Afternoon/Evening</option>
+				</select><br>
+				<button name="findbyActivity">Find By activity</button><select name="eveningActivityFind" id="eveningActivityFind">
+						<!-- use js to populate list -->
+					</select><br>
+					<button name="findAllSleep">Display All</button>
 	
 			</form>
 		</div>
-		<div class="row addActivity form" id="addActivity">
-			<form name="activityForm">
-				<h3>Add an activity:</h3>
-				<label for="name">Name of Activity</label><input type="text" name="name" placeholder="Read a book, Watched Netflix"/>
-				<button name="submit">Submit</button>
-			</form>
-		</div>
-		
-		<div class="row recommendations" id="recommendations">
-		<h3>Recommendations based on your sleep data: </h3>
-		
-		</div>
-		<div class="row sleepData" id="findSleep"></div>
-
+		<div class="col-2"></div>
 		<div class="row findSleep" id="findSleep">
-			<h3>Your Sleep Data</h3>
+			<div class="row">
+				<div class="col-5"></div>
+				<div class="col-4">
+					<br>
+					<h3>Your Sleep Data</h3>
+					<br>
+				</div>
+				<div class="col-3"></div>
+			</div>
+			<div class="col-1"></div>
+			<div class="col-10">
+				<table>
+					<thead>
+						<tr>
+							<th class="hdr col-1" abbr=0>Quality</th>
+							<th class="hdr col-1" abbr=1>Date</th>
+							<th class="hdr col-1" abbr=2>Time Start</th>
+							<th class="hdr col-1" abbr=3>Time End</th>
+							<th class="hdr col-1" abbr=4>Duration</th>
+							<th class="hdr col-1" abbr=5>Evening Activity</th>
+							<th class="hdr col-1" abbr=6>Worked out?</th>
+							<th class="hdr col-1" abbr=7>Time of workout</th>
+							<th class="hdr col-1" abbr=8>Had Alcohol</th>
+							<th class="hdr col-1" abbr=9>Took Nap</th>
+							<th class="hdr col-1" abbr=10>Id</th>
+							<th class="hdr col-1" abbr=10></th>
+							<th class="hdr col-1" abbr=10></th>
+						</tr>
+					</thead>
+					<tbody id="dataDisplay">
 
-			<table>
-				<thead>
-					<tr >
-						<th abbr=0>Quality</th>
-						<th abbr=1>Date</th>
-						<th abbr=2>Time Start</th>
-						<th abbr=3>Time End</th>
-						<th abbr=4>Duration</th>
-						<th abbr=5>Evening Activity</th>
-						<th abbr=6>Worked out?</th>
-						<th abbr=7>Time of workout</th>
-						<th abbr=8>Had Alcohol</th>
-						<th abbr=9>Took Nap</th>
-						<th abbr=10>Id</th>
-					</tr>
-				</thead>
-				<tbody id="dataDisplay">
-
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-1"></div>
 		</div>
-	</div>
+			<div class="col-2"></div>
+		<div class="col-8">
+			<div class="row editSleep form" id="addSleep">
+				<h3>Not Accurate?</h3>
+				<form name="editSleepForm">
+					<label for="quality">Enter the id for the night under edit: </label><input
+						type="number" min="1"name="id" id="id" /><br>
+					<label for="timeStart">When did you go to bed?</label><input
+						type="datetime-local" name="timeStart" id="timeStart" /><br>
+					<label for="timeEnd">When did you get up?</label><input
+						type="datetime-local" name="timeEnd" id="timeStop" /><br> <label
+						for="quality">How well did you sleep?(*/10)</label><input
+						type="number" min="0" max="10" name="quality" id="quality" /><br>
+					<label for="eveningActivity"> What did you do shortly
+						before bedtime?</label><select name="eveningActivity" id="eveningActivity">
+						<!-- use js to populate list -->
+					</select><br> <label for="exercised">Did you exercise?</label><input
+						type="checkbox" name="exercised" id="exersised" value="true" /><br>
+					<!-- add js for workout time option -->
 
+					<label for="workoutTime" id="showCheckLabelEdit" > When did you work out?</label><select
+						name="timeOfDay"  id="showCheckWorkoutEdit" >
+						<option value=1>Morning</option>
+						<option value=2>Noon</option>
+						<option value=3>Afternoon/Evening</option>
+					</select><br> <label for="hadAlcohol">Had Alcohol: </label><input
+						type="checkbox" name="hadAlchol" id="hadAlcohol" value="true" />
+					<label for="tookNap">Took Nap: </label><input type="checkbox"
+						name="tookNap" id="tookNap" value="true" /> <label
+						for="largeDinner">Had a large dinner: </label><input
+						type="checkbox" name="largeDinner" id="largeDinner" value="true" />
+
+					<br>
+					<button name="edit">Edit night</button>
+
+				</form>
+			</div>
+		</div>
+		<div class="col-2"></div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+		integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+		integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+		crossorigin="anonymous"></script>
 </body>
 </html>

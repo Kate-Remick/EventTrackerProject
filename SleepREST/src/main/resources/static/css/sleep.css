@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.addSleep{
+	border: solid black;
+	background-color: rgba(23, 40, 109, 0.3);
+	border-radius: 5px;
+}
+.addActivity{
+	border: solid black;
+	background-color: rgba(23, 40, 109, 0.3);
+	border-radius: 5px;
+}
+.editSleep{
+	border: solid black;
+	background-color: rgba(23, 40, 109, 0.3);
+	border-radius: 5px;
+}
+.findSleepForm{
+	border: solid black;
+	background-color: rgba(23, 40, 109, 0.3);
+	border-radius: 5px;
+}
+.hdr:hover{
+	border: solid black 1px;
+	background-color:rgba(23, 40, 110, 0.18);
+	border-radius: 5px;
+}
+.delete:hover{
+	border: solid black 1px;
+	background-color:rgba(23, 40, 110, 0.18);
+	border-radius: 5px;
+}
+td, th{
+	border: solid black 1px;
+	text-align: center;
+}

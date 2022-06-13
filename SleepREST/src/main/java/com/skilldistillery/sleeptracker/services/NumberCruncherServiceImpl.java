@@ -168,7 +168,7 @@ public class NumberCruncherServiceImpl implements NumberCruncherService{
 			}
 		}
 		average = Math.round(sum/bestTimes.size());
-		String result = "Between " + average + ":00 and " + (average + 1) + ":00.";
+		String result = "You sleep best when you got to bed between " + average + ":00 and " + (average + 1) + ":00.";
 		
 		return result;
 	}
@@ -186,7 +186,7 @@ public class NumberCruncherServiceImpl implements NumberCruncherService{
 			}
 		}
 		average = Math.round(sum/bestTimes.size());
-		String result = "Between " + average + ":00 and " + (average + 1) + ":00.";
+		String result = "You sleep best when you get up between " + average + ":00 and " + (average + 1) + ":00.";
 		
 		return result;
 	}

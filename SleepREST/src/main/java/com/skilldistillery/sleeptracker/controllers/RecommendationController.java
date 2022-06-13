@@ -22,7 +22,7 @@ public class RecommendationController {
 	
 	
 	@GetMapping("recommendations/goodActivities")
-	public List <EveningActivity> eveningActivitiesRecommend(HttpServletResponse res){
+	public String eveningActivitiesRecommend(HttpServletResponse res){
 		List<EveningActivity> recommended = null;
 		try {
 			recommended = crunch.eveningActivityRecommendations();
@@ -36,24 +36,40 @@ public class RecommendationController {
 			e.printStackTrace();
 		}
 		
-		return recommended;
+		String recommendation = "You sleep best after the following activities: ";
+		for (int i = 0; i < recommended.size(); i ++) {
+			recommendation += " " + recommended.get(i).getName();
+			if(i  < recommended.size() - 1) {
+				recommendation += ", ";
+			}
+		}
+		
+		return recommendation;
 	}
 	@GetMapping("recommendations/badActivities")
-	public List <EveningActivity> eveningActivitiesNotRecommend(HttpServletResponse res){
+	public String eveningActivitiesNotRecommend(HttpServletResponse res){
 		List<EveningActivity> recommended = null;
 		try {
 			recommended = crunch.eveningActivityNonRecommendations();
-			if(recommended == null || recommended.size() == 0)
-			{
-				res.setStatus(204);
-			}
 			
 		}catch(Exception e) {
 			res.setStatus(500);
 			e.printStackTrace();
 		}
 		
-		return recommended;
+		String recommendation = "You should porobably avoid these activities before going to bed: ";
+		for (int i = 0; i < recommended.size(); i ++) {
+			recommendation += " " + recommended.get(i).getName();
+			if(i  < recommended.size() - 1) {
+				recommendation += ", ";
+			}
+		}
+		if(recommended == null || recommended.size() == 0)
+		{
+			recommendation = "Not enough information to make a recommendation on activities you should avoid.";
+		}
+
+		return recommendation;
 	}
 	@GetMapping("recommendations/dinner")
 	public String largeDinnerRecommendation(HttpServletResponse res){
@@ -98,7 +114,7 @@ public class RecommendationController {
 		return recommendation;
 	}
 	@GetMapping("recommendations/workout")
-	public Workout workoutRecommendation(HttpServletResponse res){
+	public String workoutRecommendation(HttpServletResponse res){
 		Workout recommendation = null;
 		try {
 			if(crunch.workoutTimeRecomendation() == null) {
@@ -111,7 +127,9 @@ public class RecommendationController {
 			res.setStatus(500);
 			e.printStackTrace();
 		}
-		return recommendation;
+		
+		String workoutTime = "You sleep best when you workout around " + recommendation.getTimeOfDay() + ".";
+		return workoutTime;
 	}
 	@GetMapping("recommendations/sleepStart")
 	public String sleepStartRecommendation(HttpServletResponse res){
