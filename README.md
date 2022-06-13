@@ -1,7 +1,7 @@
 # Event Tracker Project
 
 ## Overview
-This project is the backend for an event tracker (Skill Distillery Week 12 Homework). It includes a MySQL database and utilizes Spring Data JPA and Spring Web features to make the backend fully accessible to a future front end. All entities were tested using Junit and all routes below have been tested using postman.
+This project is  an event tracker (Skill Distillery Week 12,13 Homework). It includes a MySQL database and utilizes Spring Data JPA and Spring Web features to make the backend fully accessible to a the front end. All entities were tested using Junit and all routes below have been tested using postman. The front end is
 
 ## Description and Use (includes expected routes)
 Sleep can be hard sometimes, and getting a good night's rest is elusive to many people. One thing that can assist in achieving the dream(s) is an understanding of what things work best for you developed from data about your sleep history. This program takes data from a user about each night's sleep, records it, and can give back recommendations based on how the user felt the quality was for each night. The database in this case was pre-populated with 30 days of sleep.
@@ -51,6 +51,7 @@ Expected Routes:
 
 ## Technologies used:
 * Java
+* JavaScript
 * MySQL Workbench
 * MySQL
 * Gradle
@@ -63,3 +64,5 @@ Expected Routes:
 ## Lessons Learned
  * Getting elapsed time between two LocalDateTimes in Java can be difficult, as simple subtraction was not available. To get around this, I converted the hours to integers, and the minute to a decimals reflecting the percentage of the hour passed and subtracted the numbers after the conversion.
  * Always, always reboot the server before testing changes that have been made.
+ * Sorting in JS is difficult with numbers due to how js reads them.
+ * Keeping in mind how asynchronous calls to a server take place after all functions already on the stack to prevent null/undefined references.
