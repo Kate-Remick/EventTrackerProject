@@ -27,7 +27,7 @@ public class NumberCruncherServiceImpl implements NumberCruncherService{
 	
 	
 	@Override
-	public List<EveningActivity> eveningActivityNonRecommendations() {
+	public String eveningActivityRecommendations() {
 		List<EveningActivity> recommended = new ArrayList<>();
 		List<EveningActivity> allActivities = ear.findAll();
 		double [] averages = new double[allActivities.size()];
@@ -48,11 +48,21 @@ public class NumberCruncherServiceImpl implements NumberCruncherService{
 				recommended.add(allActivities.get(i));
 			}
 		}
-		return recommended;
+		
+		
+		String activityRecommendation = "You sleep best after the following activities: ";
+		for (int i = 0; i < recommended.size(); i ++) {
+			activityRecommendation += " " + recommended.get(i).getName();
+			if(i  < recommended.size() - 1) {
+				activityRecommendation += ", ";
+			}
+		}
+		
+		return activityRecommendation;
 	}
 
 	@Override
-	public List<EveningActivity> eveningActivityRecommendations() {
+	public String eveningActivityNonRecommendations() {
 		List<EveningActivity> notRecommended = new ArrayList<>();
 		List<EveningActivity> allActivities = ear.findAll();
 		double [] averages = new double[allActivities.size()];
@@ -73,11 +83,21 @@ public class NumberCruncherServiceImpl implements NumberCruncherService{
 				notRecommended.add(allActivities.get(i));
 			}
 		}
-		return notRecommended;
+		
+		String activityRecommendation = "You sleep worst after the following activities: ";
+		for (int i = 0; i < notRecommended.size(); i ++) {
+			activityRecommendation += " " + notRecommended.get(i).getName();
+			if(i  < notRecommended.size() - 1) {
+				activityRecommendation += ", ";
+			}
+		}
+		
+		return activityRecommendation;
+		
 	}
 
 	@Override
-	public Workout workoutTimeRecomendation() {
+	public String workoutTimeRecomendation() {
 		List<Workout> allTimes = wr.findAll();
 		double [] averages = new double[allTimes.size()];
 		for (int i = 0; i< allTimes.size(); i ++) {
@@ -100,11 +120,14 @@ public class NumberCruncherServiceImpl implements NumberCruncherService{
 				bestQuality = averages[i];
 			}
 		}
-		return bestWorkout;
+		
+		String workoutTime = "You sleep best when you workout around " + bestWorkout.getTimeOfDay() + ".";
+		return workoutTime;
 	}
 
 	@Override
-	public Boolean largeDinnerRecommendation() {
+	public String largeDinnerRecommendation() {
+		Boolean dinner = null;
 		List<SleepPeriod> allSleeps = spr.findAll();
 		int trueSum = 0;
 		List<SleepPeriod> trueSleeps = new ArrayList<>();
@@ -122,15 +145,27 @@ public class NumberCruncherServiceImpl implements NumberCruncherService{
 		}
 		double trueAvg = trueSum/trueSleeps.size();
 		double falseAvg = falseSum/falseSleeps.size();
+		dinner = (trueAvg > falseAvg);
 		if(trueSum == 0 || falseSum == 0 || allSleeps.size() < 3 || trueAvg == falseAvg) {
-			return null;
+			dinner = null;
 		}
 		
-		return (trueAvg > falseAvg);
+		String recommendation = "";
+			if(dinner == null) {
+				recommendation = "Not enough information";
+			}else if(dinner) {
+				recommendation = "From the information you have submitted, it looks like you sleep better with a larger dinner";
+			}else {
+				recommendation = "From the information you have submitted, it looks like you sleep better with a smaller dinner";
+				
+			}
+			return recommendation;
+		
 	}
 
 	@Override
-	public Boolean napRecommendation() {
+	public String napRecommendation() {
+		Boolean nap = null;
 		List<SleepPeriod> allSleeps = spr.findAll();
 		int trueSum = 0;
 		List<SleepPeriod> trueSleeps = new ArrayList<>();
@@ -148,11 +183,21 @@ public class NumberCruncherServiceImpl implements NumberCruncherService{
 		}
 		double trueAvg = trueSum/trueSleeps.size();
 		double falseAvg = falseSum/falseSleeps.size();
+		nap =  (trueAvg > falseAvg);
 		if(trueSum == 0 || falseSum == 0 || allSleeps.size() < 3 || trueAvg == falseAvg) {
-			return null;
+			nap =  null;
 		}
+		String recommendation = "";
+		if(nap == null) {
+			recommendation = "Not enough information";
+		}else if(nap) {
+			recommendation = "From the information you have submitted, it looks like naps don't affect your sleep quality";
+		}else {
+			recommendation = "From the information you have submitted, it looks like you should avoid naps";
+			
+		}
+		return recommendation;
 		
-		return (trueAvg > falseAvg);
 	}
 
 	@Override

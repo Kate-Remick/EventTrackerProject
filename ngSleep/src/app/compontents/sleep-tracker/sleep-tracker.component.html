@@ -1,0 +1,137 @@
+<main>
+  <div class="container-fluid">
+    <h1>Sleep tracker</h1>
+    <h3>Track your sleep and use data to lean the most effective habits for a good nights sleep!</h3>
+
+    <div class="row">
+      <button (click)="toggleSleepForm = !toggleSleepForm">Add Night?</button>
+    </div>
+
+    <div class="row" id="addNight" *ngIf="toggleSleepForm">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <form name="addSleep">
+          <label for="quality">How did you sleep?</label><input type="number" min=0 max=10 name="quality" [(ngModel)]="newNight.quality"/><br>
+          <label for="start">When did you go to bed?</label><input type="datetime-local" name="start" [(ngModel)]="newNight.start"/><br>
+          <label for="end">When did you get up?</label><input type="datetime-local" name="end" [(ngModel)]="newNight.end"/><br>
+          <label for="exercised">Did you work out?</label><input type="checkbox" name="exercised" [(ngModel)]="newNight.exercised"/><br>
+          <label for="workout">When did you exercise?</label>
+          <select *ngIf="newNight.exercised" name="workout" [(ngModel)]="newNight.workout" >
+            <option *ngFor="let workout of workouts" [ngValue]="workout" > {{workout.timeOfDay}}   </option>
+          </select><br>
+          <label for="eveningActivity">What did you do before going to bed?</label><select type="select" name="eveningActivity"  [(ngModel)]="newNight.eveningActivity">
+            <option *ngFor="let activity of activities" [ngValue]="activity" >{{activity.name}}</option>
+          </select><br>
+          <label for="hadAlcohol">Had Alcohol: </label><input type="checkbox" name="hadAlcohol" [(ngModel)]="newNight.hadAlcohol"/>
+          <label for="tookNap">Took Nap: </label><input type="checkbox" name="tookNap" [(ngModel)]="newNight.tookNap"/>
+          <label for="largeDinner">Large Dinner: </label><input type="checkbox" name="largeDinner" [(ngModel)]="newNight.largeDinner"/><br>
+          <button type="submit" (click)="createNight()">Add Night</button>
+        </form>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+
+    <div class="row">
+      <button (click)="toggleActivityForm = !toggleActivityForm">New Activity Form</button>
+    </div>
+    <div class="row" id="addActivity" *ngIf="toggleActivityForm">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <form name="addActivity">
+          <label for="name">Activity name: </label><input type="text" name="name"  [(ngModel)]="newActivity.name" />
+          <button type="submit" (click)="createActivity()">Add Activity</button>
+         </form>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+
+
+
+    <div class="row">
+      <button (click)="toggleRecommendations = !toggleRecommendations">Recommendations</button>
+    </div>
+    <div class="row" id="recommendations" *ngIf="toggleRecommendations">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <ul>
+          <li *ngFor="let recommendation of recommendations">{{recommendation}}</li>
+        </ul>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+
+    <div class="row">
+      <button (click)="toggleShowData= !toggleShowData">Show Sleep Data</button>
+    </div>
+    <div class="row" id="sleepData" *ngIf="toggleShowData">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Quality</th>
+              <th>Date</th>
+              <th>Duration</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Exercised</th>
+              <th>Time of Exercise</th>
+              <th>Evening Activity</th>
+              <th>Took Nap</th>
+              <th>Large Dinner</th>
+              <th>Had Alcohol</th>
+              <th>Delete</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>Edit:</tr>
+            <tr *ngIf="editSelect">
+                <td>{{editSelect.id}}</td>
+                <td><input type="number" min=0 max=10 name="quality" [(ngModel)]="editSelect.quality" /></td>
+                <td></td>
+                <td></td>
+                <td><input type="datetime-local" name="start" [(ngModel)]="editSelect.start" /></td>
+                <td><input type="datetime-local" name="end" [(ngModel)]="editSelect.end" /></td>
+                <td><input type="checkbox" name="exercised" [(ngModel)]="editSelect.exercised" /></td>
+                <td> <select *ngIf="editSelect.exercised" name="workout" [(ngModel)]="editNight.workout" >
+                  <option *ngFor="let workout of workouts" [ngValue]="workout" > {{workout.timeOfDay}}   </option>
+                </select></td>
+                <td><select type="select" name="eveningActivity"  [(ngModel)]="editSelect.eveningActivity">
+                  <option *ngFor="let activity of activities" [ngValue]="activity" >{{activity.name}}</option>
+                </select></td>
+                <td><input type="checkbox" name="tookNap" [(ngModel)]="editSelect.tookNap" /></td>
+                <td><input type="checkbox" name="largeDinner" [(ngModel)]="editSelect.largeDinner" /></td>
+                <td><input type="checkbox" name="hadAlcohol" [(ngModel)]="editSelect.hadAlcohol" /></td>
+                <td></td>
+                <td><button (click)="updateNight(editSelect)">Save</button></td>
+            </tr>
+            <tr *ngFor="let night of nights">
+                <td>{{night.id}}</td>
+                <td>{{night.quality}}</td>
+                <td><span *ngIf="night.start">{{night.start.toString().substring(0, 10)}}</span></td>
+                <td>{{night.duration}}</td>
+                <td><span *ngIf="night.start">{{night.start.toString().substring(11)}}</span></td>
+                <td><span *ngIf="night.end">{{night.end.toString().substring(11)}}</span></td>
+                <td>{{night.exercised}}</td>
+                <td>{{night.workout?.timeOfDay}}</td>
+                <td>{{night.eveningActivity?.name}}</td>
+                <td>{{night.tookNap}}</td>
+                <td>{{night.largeDinner}}</td>
+                <td>{{night.hadAlcohol}}</td>
+                <td><button (click)="deleteNight(night.id)" >X</button></td>
+                <td><button (click)="selectEdit(night)" >Edit</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+
+
+
+  </div>
+</main>
